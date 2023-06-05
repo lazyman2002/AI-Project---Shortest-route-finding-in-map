@@ -76,7 +76,7 @@ img = pygame.transform.scale(img, (440, 660))
 screen.blit(img, (0, 0))
 pygame.display.set_caption("AI Project - Shortest route finding in map")
 
-done = False
+done = bool(False)
 clock = pygame.time.Clock()
 
 
@@ -90,10 +90,13 @@ path = []
 while not done:
     clock.tick(60)
     for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            done = True
         if count >= 2:
-            pygame.time.delay(1000000)
-        
-        if event.type == pygame.MOUSEBUTTONUP:
+            if event.type == pygame.WINDOWCLOSE :
+                done = True
+            break
+        if event.type == pygame.MOUSEBUTTONUP: 
             if count >= 2:
                 break
             hoanh.append(event.pos[0])
@@ -117,9 +120,8 @@ while not done:
             path.append((hoanh[1], tung[1]))
             print(path)
             pygame.draw.lines(screen, (69, 98, 212), False, path, 5)
-        
-        elif event.type == pygame.QUIT:
-            done = True
-        pygame.display.flip()
-pygame.quit()
 
+        
+    pygame.display.flip()
+pygame.quit()
+sys.exit()
